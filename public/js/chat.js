@@ -57,21 +57,23 @@ const conectarSocket = async() => {
     //     console.log('Privado: ', payload.mensaje)
     // });
 
-    socket.on('mensaje-privado', (payload) => {
-        let mensajeprHtml = '';
-        // payload.forEach( ({ usuario, mensaje }) => {
-            mensajeprHtml += `
-                <li class="list-group-item">
-                    <p>
-                        <span class="text-success">[Privado]</span>
-                        <span class="text-warning">${ usuario.nombre }: </span>
-                        <span>${ payload.mensaje }</span>
-                    </p>
-                </li>
-            `;
-        // });
-        ulMensajes.innerHTML = mensajeprHtml;
-    });
+    socket.on('mensaje-privado', dibujarMensajePrivado);
+
+    // socket.on('mensaje-privado', (payload) => {
+    //     let mensajeprHtml = '';
+    //     // payload.forEach( ({ nombre, mensaje }) => {
+    //         mensajeprHtml += `
+    //             <li class="list-group-item">
+    //                 <p>
+    //                     <span class="text-success">[Privado]</span>
+    //                     <span class="text-warning">${ usuario.nombre }: </span>
+    //                     <span>${ payload.mensaje }</span>
+    //                 </p>
+    //             </li>
+    //         `;
+    //     // });
+    //     ulMensajes.innerHTML = mensajeprHtml;
+    // });
 }
 
 const dibujarUsuarios = ( usuarios = [] ) => {
@@ -105,6 +107,24 @@ const dibujarMensajes = ( mensajes = [] ) => {
         `;
     });
     ulMensajes.innerHTML = mensajesHtml;
+    
+}
+
+const dibujarMensajePrivado = ( mensajepriv = [] ) => {
+
+    let mensajeprHtml = '';
+    mensajepriv.forEach( ({ nombre, mensaje }) => {
+        mensajeprHtml += `
+            <li class="list-group-item">
+                <p>
+                    <span class="text-success">[Privado]</span>
+                    <span class="text-warning">${ nombre }: </span>
+                    <span>${ mensaje }</span>
+                </p>
+            </li>
+        `;
+    });
+    ulMensajes.innerHTML = mensajeprHtml;
     
 }
 
